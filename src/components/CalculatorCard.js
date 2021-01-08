@@ -42,7 +42,7 @@ function CalculatorCard() {
                                 <Card className="help-text">
                                     <Card.Header>
                                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                            <i class="bi bi-info-circle-fill"></i> Clique me para obter ajuda
+                                            <i className="bi bi-info-circle-fill"></i> Clique aqui para obter ajuda
                                         </Accordion.Toggle>
                                     </Card.Header>
                                     <Accordion.Collapse eventKey="0">

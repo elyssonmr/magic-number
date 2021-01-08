@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useLayoutEffect} from 'react'
 
 import {Row, Col, InputGroup, FormControl} from 'react-bootstrap'
 
@@ -13,7 +13,7 @@ function CalculatorLine() {
     let [price, setPrice] = useState('')
     let [dividends, setDividends] = useState('')
     let [magicNumber, setMagicNumber] = useState(0)
-    useEffect(
+    useLayoutEffect(
         () => {
             if (price > 0 && dividends > 0) {
                 setMagicNumber(Math.ceil(price / dividends))
@@ -21,7 +21,7 @@ function CalculatorLine() {
                 setMagicNumber('')
             }
         },
-        [name, price, dividends]
+        [price, dividends]
     )
     return (
         <Row>
