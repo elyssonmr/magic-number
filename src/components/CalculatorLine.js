@@ -1,11 +1,59 @@
-import React, {useState, useLayoutEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Row, Col, InputGroup, FormControl} from 'react-bootstrap'
 
-function createHandleChange(setFunction) {
-    return e => {
-        setFunction(e.target.value)
+
+function ReadOnlyField({placeholder, label, value, readOnly}) {
+    return (
+        <FormControl
+            placeholder={placeholder}
+            aria-label={label}
+            value={value}
+            readOnly={readOnly}
+        />
+    )
+}
+
+function InputField({placeholder, label, setFunction}) {
+    return (
+        <FormControl
+            placeholder={placeholder}
+            aria-label={label}
+            min='0'
+            type='number'
+            onChange={e => setFunction(e.target.value)}
+        />
+    )
+}
+
+function MoneyInputGroup(props) {
+    let input
+    if (props.readOnly) {
+        input = (
+            <ReadOnlyField
+                placeholder={props.placeholder}
+                label={props.label}
+                value={props.value}
+                readOnly={props.readOnly}
+            />
+        )
+    } else {
+        input = (
+            <InputField
+                placeholder={props.placeholder}
+                label={props.label}
+                setFunction={props.setFunction}
+            />
+        )
     }
+    return (
+        <InputGroup>
+            <InputGroup.Prepend>
+                <InputGroup.Text>$</InputGroup.Text>
+            </InputGroup.Prepend>
+            {input}
+        </InputGroup>
+    )
 }
 
 function CalculatorLine() {
@@ -13,7 +61,7 @@ function CalculatorLine() {
     let [price, setPrice] = useState('')
     let [dividends, setDividends] = useState('')
     let [magicNumber, setMagicNumber] = useState(0)
-    useLayoutEffect(
+    useEffect(
         () => {
             if (price > 0 && dividends > 0) {
                 setMagicNumber(Math.ceil(price / dividends))
@@ -26,52 +74,33 @@ function CalculatorLine() {
     return (
         <Row>
             <Col>
-                <FormControl
+                <InputField
                     placeholder="Nome do Fii"
-                    aria-label="name"
-                    onChange={createHandleChange(setName)}
+                    label="name"
+                    setFunction={setName}
                 />
             </Col>
             <Col>
-                <InputGroup>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>$</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                        placeholder="Preço"
-                        aria-label="price"
-                        type='number'
-                        min='0'
-                        onChange={createHandleChange(setPrice)}
-                    />
-                </InputGroup>
+                <MoneyInputGroup
+                    placeholder="Preço"
+                    label="price"
+                    setFunction={setPrice}
+                />
             </Col>
             <Col>
-                <InputGroup>
-                    <InputGroup.Prepend>
-                            <InputGroup.Text>$</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                        placeholder="Dividendos / Proventos"
-                        aria-label="price"
-                        type='number'
-                        min='0'
-                        onChange={createHandleChange(setDividends)}
-                    />
-                </InputGroup>
+                <MoneyInputGroup
+                    placeholder="Dividendos / Proventos"
+                    label="price"
+                    setFunction={setDividends}
+                />
             </Col>
             <Col>
-                <InputGroup>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>$</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                        placeholder="Magic Number"
-                        aria-label="magic_number"
-                        readOnly={true}
-                        value={magicNumber}
-                    />
-                </InputGroup>
+                <MoneyInputGroup
+                    placeholder="Magic Number"
+                    label="magic_number"
+                    readOnly={true}
+                    value={magicNumber}
+                />
             </Col>
         </Row>
     )
