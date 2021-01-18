@@ -14,13 +14,14 @@ function ReadOnlyField({placeholder, label, value, readOnly}) {
     )
 }
 
-function InputField({placeholder, label, setFunction}) {
+function InputField({placeholder, label, setFunction, type}) {
+    type = type ? type : 'number'
     return (
         <FormControl
             placeholder={placeholder}
             aria-label={label}
             min='0'
-            type='number'
+            type={type}
             onChange={e => setFunction(e.target.value)}
         />
     )
@@ -78,6 +79,7 @@ function CalculatorLine() {
                     placeholder="Nome do Fii"
                     label="name"
                     setFunction={setName}
+                    type='text'
                 />
             </Col>
             <Col>
