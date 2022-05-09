@@ -1,6 +1,8 @@
 env:
   browser: true
   es2021: true
+  jest: true
+  prototypejs: false
 extends:
   - 'plugin:react/recommended'
   - 'airbnb'
@@ -12,5 +14,5 @@ parserOptions:
 plugins:
   - react
 rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }]
 }

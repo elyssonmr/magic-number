@@ -38,10 +38,10 @@ function CalculatorCard() {
           <TableHeader />
           <Row>
             <ListGroup variant="flush">
-              {lines.map((item) => (
+              {lines.map(({ id }) => (
                 <CalculatorRow
-                  key={item.id}
-                  id={item.id}
+                  key={id}
+                  id={id}
                   lines={lines}
                   removeItem={removeItem}
                 />
